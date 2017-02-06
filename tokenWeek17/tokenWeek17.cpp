@@ -32,7 +32,7 @@ int getOption();
 void main()
 {
 	char string[20];
-	char fileName[] = "C:\\Users\\sndri\\Documents\\SampleData.txt";
+	char fileName[] = "C:\\Users\\sndri\\Documents\\Visual Studio 2015\\Projects\\tokenWeek17\\tokenWeek17\\SampleData.txt";
 	int i = 0;
 	int option, year;
 	char temp[20];
