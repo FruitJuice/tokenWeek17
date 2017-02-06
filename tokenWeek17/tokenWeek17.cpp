@@ -193,7 +193,6 @@ void findByYear(int year)
 	printf("Sales for year: 20%d = %.2f\n", year, total);
 }
 
-
 int getOption()
 {
 	int option = 0;
