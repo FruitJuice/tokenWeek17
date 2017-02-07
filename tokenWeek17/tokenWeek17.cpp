@@ -26,6 +26,7 @@ void findByRegion(char *region);
 void findByRep(char *rep);
 void findByItem(char *item);
 void findByYear(int year);
+void removeWhitespace(char *string);
 
 int getOption();
 
@@ -53,18 +54,21 @@ void main()
 		case 1:
 			puts("Enter Region");
 			gets_s(temp);
+			removeWhitespace(temp);
 			_strlwr(temp);
 			findByRegion(temp);
 			break;
 		case 2:
 			puts("Enter Rep");
 			gets_s(temp);
+			removeWhitespace(temp);
 			_strlwr(temp);
 			findByRep(temp);
 			break;
 		case 3:
 			puts("Enter Item");
 			gets_s(temp);
+			removeWhitespace(temp);
 			_strlwr(temp);
 			findByItem(temp);
 			break;
@@ -86,7 +90,6 @@ int readFile(char *fileName)
 	ptr = fopen(fileName, "r");
 	char delim[5] = "\t";
 	char delim2[5] = "/";
-	char delim3[5] = ".";
 	char line[200];
 	char *token;
 
@@ -115,16 +118,11 @@ int readFile(char *fileName)
 			token = strtok(NULL, delim);
 			records[nrecords].units = atoi(token);
 
-			token = strtok(NULL, delim3);
-			records[nrecords].unitCost = atol(token);
 			token = strtok(NULL, delim);
-			records[nrecords].unitCost += (atol(token)*0.01);
-
-
-			token = strtok(NULL, delim3);
-			records[nrecords].totalCost = atol(token);
+			records[nrecords].unitCost = atof(token);
+	
 			token = strtok(NULL, delim);
-			records[nrecords].totalCost += (atol(token)*0.01);
+			records[nrecords].totalCost = atof(token);
 			nrecords++;
 		}
 	} while(!feof(ptr));
@@ -208,4 +206,31 @@ int getOption()
 	option = atoi(inp);
 
 	return option;
+}
+
+void removeWhitespace(char *string)
+{
+	char temp[100]; //store new string without whitespaces
+	int i; 
+	int end; 
+	int start = 0;
+	end = strlen(string) - 1; //finds the index of the end of the string
+
+	while (string[start] == ' ') //records index of where the whitespaces stop of the start
+	{
+		start++;
+	}
+	
+	while (string[end] == ' ') //records index of the last character before whitespace
+	{
+		end--;
+	}
+
+	for (i = 0; (end - start) >= i ; i++) //copies characters between the whitespaces
+	{
+		temp[i] = string[start + i]; //stores it in a temp as not to alter the original pointer
+	}
+
+	temp[i] = '\0'; //ends the new string
+	strcpy(string, temp); //copies the new string into the same location as old string
 }
