@@ -93,6 +93,9 @@ int readFile(char *fileName)
 	char line[200];
 	char *token;
 
+	if (ptr == NULL) return 0;
+
+
 	do 
 	{
 		fgets(line, 199, ptr);
